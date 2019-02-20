@@ -1,9 +1,6 @@
 import boto3
 from botocore.exceptions import ClientError
-from time import strftime
 import sys
-
-VERSION_LABEL = strftime('%Y%m%d%H%M%S')
 
 
 def publish_to_s3(artifact, bucket, key):
