@@ -39,6 +39,7 @@ def deploy_new_revision(app_name, group_name, key):
                 sys.exit(0)
             elif deploy_status == 'Failed' or deploy_status == 'Stopped' :
                 print('Deployment has failed!')
+                sys.exit(1)
             elif (deploy_status == 'InProgress') or (deploy_status == 'Queued') or (deploy_status == 'Created'):
                 continue
         except ClientError as err:
