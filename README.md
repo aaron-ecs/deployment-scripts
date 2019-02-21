@@ -20,3 +20,26 @@ Compress your project as `artifact.zip` and run the script with the command belo
 Be sure you keep the `.zip` file extension.
 
 `$ python deploy_to_ec2.py application-name code-deploy-group bucket-directory/file-name.zip`
+
+Note: your application code will need an `appspec.yml` file to handle the code deploy job.
+
+### Example Usage
+Example usage on a Jenkins Pipeline:
+
+    stage('Publish Artifact to S3') {
+      steps{
+        script {
+          sh 'rm -f artifact.zip'
+          zip zipFile: 'artifact.zip', archive: false
+          git 'https://github.com/aaron-ecs/deployment-scripts/'
+          sh 'python3 publish_to_s3.py aaron-codedeploy-bucket user-exercises-rest/$GIT_BRANCH-$BUILD_NUMBER.zip'
+        }
+      }
+    }
+    stage('Deploy to EC2') {
+      steps{
+        script {
+          sh 'python3 deploy_to_ec2.py user-exercises-rest user-exercises-rest user-exercises-rest/$GIT_BRANCH-$BUILD_NUMBER.zip'
+        }
+      }
+    }
