@@ -43,3 +43,8 @@ Example usage on a Jenkins Pipeline:
         }
       }
     }
+    
+## To Do
+- Working on testing
+- Better error handling & logging
+- Full clean up service before deploying
